@@ -1,0 +1,8 @@
+---
+- name: "Install SDR packages"
+  ansible.builtin.apt:
+    name:
+      - rtl-sdr
+      - hackrf
+      - gnuradio
+    state: present

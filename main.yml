@@ -1,0 +1,36 @@
+---
+- name: "Set up laptop"
+  hosts: localhost
+  user: tayken
+  connection: local
+
+  vars_files: []
+
+  roles: []
+
+  handlers:
+    - ansible.builtin.import_tasks: handlers/main.yml
+
+  tasks:
+    - ansible.builtin.import_tasks: tasks/basic.yml
+      tags: ['basic']
+    - ansible.builtin.import_tasks: tasks/dropbox.yml
+      tags: ['dropbox']
+    - ansible.builtin.import_tasks: tasks/battery.yml
+      tags: ['battery']
+    - ansible.builtin.import_tasks: tasks/wm.yml
+      tags: ['wm']
+    - ansible.builtin.import_tasks: tasks/vm.yml
+      tags: ['vm']
+    - ansible.builtin.import_tasks: tasks/docker.yml
+      tags: ['docker']
+    - ansible.builtin.import_tasks: tasks/chrome.yml
+      tags: ['chrome']
+    - ansible.builtin.import_tasks: tasks/arm.yml
+      tags: ['arm']
+    - ansible.builtin.import_tasks: tasks/vscode.yml
+      tags: ['vscode']
+    - ansible.builtin.import_tasks: tasks/electronics.yml
+      tags: ['electronics']
+    - ansible.builtin.import_tasks: tasks/sdr.yml
+      tags: ['sdr']

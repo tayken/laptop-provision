@@ -1,0 +1,7 @@
+---
+- name: "Install virtual machine packages"
+  ansible.builtin.apt:
+    name:
+      - virtualbox
+      - vagrant
+    state: present

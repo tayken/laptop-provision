@@ -1,0 +1,56 @@
+---
+- name: "Add KiCad stable repository from PPA"
+  ansible.builtin.apt_repository:
+    repo: ppa:kicad/kicad-8.0-releases
+    state: present
+
+- name: "Install electronics packages"
+  ansible.builtin.apt:
+    name:
+      - kicad
+      - avrdude
+    state: present
+
+- name: "Install cynthion python package"
+  ansible.builtin.pip:
+    name: cynthion
+
+- name: "Checkout Tomu repository"
+  become: false
+  ansible.builtin.git:
+    repo: https://github.com/im-tomu/tomu-quickstart.git
+    dest: ~/tomu-quickstart
+
+- name: "Checkout Fomu repository"
+  become: false
+  ansible.builtin.git:
+    repo: https://github.com/im-tomu/fomu-workshop.git
+    dest: ~/fomu-workshop
+
+- name: "Copy Tomu udev rules"
+  ansible.builtin.copy:
+    src: udev/tomu.rules
+    dest: /etc/udev/rules.d/99-tomu.rules
+    mode: "0644"
+  notify: Reload udev
+
+- name: "Copy Fomu udev rules"
+  ansible.builtin.copy:
+    src: udev/fomu.rules
+    dest: /etc/udev/rules.d/99-fomu.rules
+    mode: "0644"
+  notify: Reload udev
+
+- name: "Copy BusPirate udev rules"
+  ansible.builtin.copy:
+    src: udev/buspirate.rules
+    dest: /etc/udev/rules.d/99-buspirate.rules
+    mode: "0644"
+  notify: Reload udev
+
+- name: "Copy OLS udev rules"
+  ansible.builtin.copy:
+    src: udev/ols.rules
+    dest: /etc/udev/rules.d/99-ols.rules
+    mode: "0644"
+  notify: Reload udev

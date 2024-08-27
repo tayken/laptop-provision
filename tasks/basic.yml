@@ -1,0 +1,47 @@
+---
+- name: "Install basic packages"
+  ansible.builtin.apt:
+    name:
+      - vim
+      - net-tools
+      - tmux
+      - screen
+      - make
+      - cmake
+      - gcc
+      - build-essential
+      - git
+      - tig
+      - texlive-full
+      - wget
+      - curl
+      - jq
+    state: present
+
+- name: "Copy vim config"
+  become: false
+  ansible.builtin.copy:
+    src: config/vimrc
+    dest: ~/.vimrc
+    mode: "0644"
+
+- name: "Copy tmux config"
+  become: false
+  ansible.builtin.copy:
+    src: config/tmux.conf
+    dest: ~/.tmux.conf
+    mode: "0644"
+
+- name: "Copy git config"
+  become: false
+  ansible.builtin.copy:
+    src: config/gitconfig
+    dest: ~/.gitconfig
+    mode: "0664"
+
+- name: "Copy tig config"
+  become: false
+  ansible.builtin.copy:
+    src: config/tigrc
+    dest: ~/.tigrc
+    mode: "0664"

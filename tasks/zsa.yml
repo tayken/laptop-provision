@@ -1,0 +1,45 @@
+---
+- name: "Install ZSA packages"
+  ansible.builtin.apt:
+    name:
+      - libwebkit2gtk-4.1-0
+      - libgtk-3-0
+      - libusb-1.0-0
+    state: present
+
+- name: "Copy ZSA udev rules"
+  ansible.builtin.copy:
+    src: udev/zsa.rules
+    dest: /etc/udev/rules.d/50-zsa.rules
+    mode: "0644"
+  notify: Reload udev
+
+- name: "Add user to the plugdev group"
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: plugdev
+    append: true
+
+- name: "Install keymapp"
+  become: false
+  ansible.builtin.unarchive:
+    src: https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz
+    dest: "/home/{{ ansible_user }}/.local/bin"
+    remote_src: true
+    include: keymapp
+
+- name: "Check latest kontroll release"
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/zsa/kontroll/releases/latest
+  register: kontroll_latest
+  check_mode: false
+
+- name: "Install kontroll"
+  become: false
+  ansible.builtin.unarchive:
+    src: "{{ kontroll_latest.json | community.general.json_query(url_query) | join('') }}"
+    dest: "/home/{{ ansible_user }}/.local/bin"
+    remote_src: true
+    include: kontroll
+  vars:
+    url_query: "assets[?contains(name,'linux')].browser_download_url"

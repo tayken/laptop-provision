@@ -18,6 +18,8 @@
       tags: ['dropbox']
     - ansible.builtin.import_tasks: tasks/battery.yml
       tags: ['battery']
+    - ansible.builtin.import_tasks: tasks/zsa.yml
+      tags: ['zsa']
     - ansible.builtin.import_tasks: tasks/wm.yml
       tags: ['wm']
     - ansible.builtin.import_tasks: tasks/vm.yml

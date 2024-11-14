@@ -1,5 +1,5 @@
 SUBSYSTEM=="tty" ATTRS{idVendor}=="0403" ATTRS{idProduct}=="6001" ATTRS{serial}=="A7004pZD" SYMLINK+="buspirate_v2"
 SUBSYSTEM=="tty" ATTRS{idVendor}=="04d8" ATTRS{idProduct}=="000a" SYMLINK+="buspirate_v4bl"
 SUBSYSTEM=="tty" ATTRS{idVendor}=="04d8" ATTRS{idProduct}=="fb00" SYMLINK+="buspirate_v4"
-SUBSYSTEM=="tty" ATTRS{idVendor}=="1209" ATTRS{idProduct}=="7332" ENV{ID_USB_INTERFACE_NUM}=="00" SYMLINK+="buspirate_v5"
-SUBSYSTEM=="tty" ATTRS{idVendor}=="1209" ATTRS{idProduct}=="7332" ENV{ID_USB_INTERFACE_NUM}=="02" SYMLINK+="buspirate_v5bin"
+SUBSYSTEM=="tty" ATTRS{idVendor}=="1209" ATTRS{idProduct}=="7331" ENV{ID_USB_INTERFACE_NUM}=="00" SYMLINK+="buspirate_v5"
+SUBSYSTEM=="tty" ATTRS{idVendor}=="1209" ATTRS{idProduct}=="7331" ENV{ID_USB_INTERFACE_NUM}=="02" SYMLINK+="buspirate_v5bin"

@@ -6,3 +6,5 @@
 	pager = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 [interactive]
 	difffilter = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+[pull]
+	rebase = true

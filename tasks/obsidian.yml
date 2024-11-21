@@ -1,0 +1,12 @@
+---
+- name: Check latest Obsidian release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
+  register: obsidian_latest
+  check_mode: false
+
+- name: Install Obsidian
+  ansible.builtin.apt:
+    deb: "{{ obsidian_latest.json | community.general.json_query(url_query) | join('') }}"
+  vars:
+    url_query: assets[?contains(name,'amd64.deb')].browser_download_url

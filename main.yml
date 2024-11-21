@@ -26,6 +26,8 @@
       tags: [docker]
     - ansible.builtin.import_tasks: tasks/chrome.yml
       tags: [chrome]
+    - ansible.builtin.import_tasks: tasks/obsidian.yml
+      tags: [obsidian]
     - ansible.builtin.import_tasks: tasks/arm.yml
       tags: [arm]
     - ansible.builtin.import_tasks: tasks/vscode.yml

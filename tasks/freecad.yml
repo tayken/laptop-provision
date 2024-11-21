@@ -1,0 +1,15 @@
+---
+- name: Check latest FreeCad release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/FreeCAD/FreeCAD/releases/latest
+  register: freecad_latest
+  check_mode: false
+
+- name: Install FreeCad
+  become: false
+  ansible.builtin.get_url:
+    url: "{{ freecad_latest.json | community.general.json_query(url_query) | join('') }}"
+    dest: /home/{{ ansible_user }}/bin/FreeCAD.AppImage
+    mode: "0775"
+  vars:
+    url_query: assets[?contains(name,'Linux-x86_64') && content_type=='application/vnd.appimage'].browser_download_url

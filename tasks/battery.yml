@@ -1,10 +1,10 @@
 ---
-- name: "Add TLP repository from PPA"
+- name: Add TLP repository from PPA
   ansible.builtin.apt_repository:
     repo: ppa:linrunner/tlp
     state: present
 
-- name: "Install battery packages"
+- name: Install battery packages
   ansible.builtin.apt:
     name:
       - tlp

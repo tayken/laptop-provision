@@ -1,5 +1,5 @@
 ---
-- name: "Install ARM development packages"
+- name: Install ARM development packages
   ansible.builtin.apt:
     name:
       - gcc-arm-none-eabi
@@ -12,26 +12,26 @@
       - openocd
     state: present
 
-- name: "Create pico folder"
+- name: Create pico folder
   become: false
   ansible.builtin.file:
     path: ~/pico
     state: directory
     mode: "0775"
 
-- name: "Checkout Pico SDK repository"
+- name: Checkout Pico SDK repository
   become: false
   ansible.builtin.git:
     repo: https://github.com/raspberrypi/pico-sdk.git
     dest: ~/pico/pico-sdk
 
-- name: "Checkout Pico examples repository"
+- name: Checkout Pico examples repository
   become: false
   ansible.builtin.git:
     repo: https://github.com/raspberrypi/pico-examples.git
     dest: ~/pico/pico-examples
 
-- name: "Checkout picotool repository"
+- name: Checkout picotool repository
   become: false
   ansible.builtin.git:
     repo: https://github.com/raspberrypi/picotool.git

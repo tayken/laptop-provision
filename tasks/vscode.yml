@@ -1,22 +1,22 @@
 ---
-- name: "Ensure directory exists for /etc/apt/keyrings"
+- name: Ensure directory exists for /etc/apt/keyrings
   ansible.builtin.file:
     path: /etc/apt/keyrings
     state: directory
-    mode: '0755'
+    mode: "0755"
 
-- name: "Add Microsoft apt key"
+- name: Add Microsoft apt key
   ansible.builtin.get_url:
     url: https://packages.microsoft.com/keys/microsoft.asc
     dest: /etc/apt/keyrings/microsoft.asc
-    mode: '0644'
+    mode: "0644"
 
-- name: "Add VS Code repository"
+- name: Add VS Code repository
   ansible.builtin.apt_repository:
     repo: deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/microsoft.asc] https://packages.microsoft.com/repos/code stable main
     state: present
 
-- name: "Install VS Code package"
+- name: Install VS Code package
   ansible.builtin.apt:
     name: code
     state: present

@@ -1,5 +1,5 @@
 ---
-- name: "Install virtual machine packages"
+- name: Install virtual machine packages
   ansible.builtin.apt:
     name:
       - virtualbox

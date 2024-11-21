@@ -1,5 +1,5 @@
 ---
-- name: "Install SDR packages"
+- name: Install SDR packages
   ansible.builtin.apt:
     name:
       - rtl-sdr

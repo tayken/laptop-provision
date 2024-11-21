@@ -11,6 +11,13 @@
       - avrdude
     state: present
 
+- name: Download Saleae Logic 2
+  become: false
+  ansible.builtin.get_url:
+    url: https://logic2api.saleae.com/download?os=linux&arch=x64
+    dest: /home/{{ ansible_user }}/bin/Logic-2.AppImage
+    mode: "0775"
+
 - name: Install cynthion python package
   ansible.builtin.pip:
     name: cynthion
@@ -26,6 +33,13 @@
   ansible.builtin.git:
     repo: https://github.com/im-tomu/fomu-workshop.git
     dest: ~/fomu-workshop
+
+- name: Copy Saleae Logic udev rules
+  ansible.builtin.copy:
+    src: udev/SaleaeLogic.rules
+    dest: /etc/udev/rules.d/99-SaleaeLogic.rules
+    mode: "0644"
+  notify: Reload udev
 
 - name: Copy Tomu udev rules
   ansible.builtin.copy:

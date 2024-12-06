@@ -4,6 +4,20 @@
     name: i3
     state: present
 
+- name: Create i3 config folder
+  become: false
+  ansible.builtin.file:
+    path: ~/.config/i3/
+    state: directory
+    mode: "0775"
+
+- name: Create i3status config folder
+  become: false
+  ansible.builtin.file:
+    path: ~/.config/i3status/
+    state: directory
+    mode: "0775"
+
 - name: Copy i3 config
   become: false
   ansible.builtin.copy:

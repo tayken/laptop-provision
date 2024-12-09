@@ -54,6 +54,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 # Lock screen, suspend, etc
 bindsym $win+l exec i3lock -c 000000
 bindsym $win+s exec i3lock -c 000000 && systemctl suspend
+bindsym Print exec gnome-screenshot -i
 
 # change focus
 bindsym $mod+j focus left

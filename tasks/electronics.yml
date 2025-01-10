@@ -9,6 +9,7 @@
     name:
       - kicad
       - avrdude
+      - openjdk-8-jdk
     state: present
 
 - name: Download Saleae Logic 2
@@ -68,3 +69,10 @@
     dest: /etc/udev/rules.d/99-ols.rules
     mode: "0644"
   notify: Reload udev
+
+- name: Install OLS client
+  become: false
+  ansible.builtin.unarchive:
+    src: https://lxtreme.nl/ols/ols-0.9.7.2-full.tar.gz
+    dest: /home/{{ ansible_user }}
+    remote_src: true

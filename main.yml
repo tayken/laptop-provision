@@ -34,6 +34,8 @@
       tags: [vscode]
     - ansible.builtin.import_tasks: tasks/electronics.yml
       tags: [electronics]
+    - ansible.builtin.import_tasks: tasks/kvm.yml
+      tags: [kvm]
     - ansible.builtin.import_tasks: tasks/freecad.yml
       tags: [freecad]
     - ansible.builtin.import_tasks: tasks/sdr.yml

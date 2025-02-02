@@ -1,0 +1,39 @@
+---
+- name: Install Openterface_QT dependencies
+  ansible.builtin.apt:
+    name:
+      - libqt6core6
+      - libqt6dbus6
+      - libqt6gui6
+      - libqt6network6
+      - libqt6multimedia6
+      - libqt6multimediawidgets6
+      - libqt6serialport6
+      - libqt6svg6
+      - libusb-1.0-0-dev
+    state: present
+
+- name: Copy Openterface udev rules
+  ansible.builtin.copy:
+    src: udev/openterface.rules
+    dest: /etc/udev/rules.d/51-openterface.rules
+    mode: "0644"
+  notify: Reload udev
+
+- name: Add user to the dialout group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: dialout
+    append: true
+
+- name: Check latest Openterface_QT release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/TechxArtisanStudio/Openterface_QT/releases/latest
+  register: openterface_latest
+  check_mode: false
+
+- name: Install Openterface_QT
+  ansible.builtin.apt:
+    deb: "{{ openterface_latest.json | community.general.json_query(url_query) | join('') }}"
+  vars:
+    url_query: assets[?contains(name,'amd64.deb')].browser_download_url

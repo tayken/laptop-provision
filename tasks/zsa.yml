@@ -3,7 +3,7 @@
   ansible.builtin.apt:
     name:
       - libwebkit2gtk-4.1-0
-      - libgtk-3-0
+      - libgtk-3-0t64
       - libusb-1.0-0
     state: present
 

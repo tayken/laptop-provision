@@ -19,10 +19,6 @@
     dest: /home/{{ ansible_user }}/bin/Logic-2.AppImage
     mode: "0775"
 
-- name: Install cynthion python package
-  ansible.builtin.pip:
-    name: cynthion
-
 - name: Checkout Tomu repository
   become: false
   ansible.builtin.git:
@@ -76,3 +72,22 @@
     src: https://lxtreme.nl/ols/ols-0.9.7.2-full.tar.gz
     dest: /home/{{ ansible_user }}
     remote_src: true
+
+- name: Install cynthion python package
+  ansible.builtin.pip:
+    name: cynthion
+
+- name: Check latest Packetry release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/greatscottgadgets/packetry/releases/latest
+  register: packetry_latest
+  check_mode: false
+
+- name: Install Packetry
+  become: false
+  ansible.builtin.get_url:
+    url: "{{ packetry_latest.json | community.general.json_query(url_query) | join('') }}"
+    dest: /home/{{ ansible_user }}/bin/Packetry.AppImage
+    mode: "0775"
+  vars:
+    url_query: assets[?contains(name,'-x86_64') && content_type=='application/vnd.appimage'].browser_download_url

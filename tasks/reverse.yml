@@ -1,0 +1,15 @@
+---
+- name: Check latest Ghidra release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/NationalSecurityAgency/ghidra/releases/latest
+  register: ghidra_latest
+  check_mode: false
+
+- name: Install Ghidra
+  become: false
+  ansible.builtin.unarchive:
+    src: "{{ ghidra_latest.json | community.general.json_query(url_query) | join('') }}"
+    dest: /home/{{ ansible_user }}
+    remote_src: true
+  vars:
+    url_query: assets[?contains(name,'_PUBLIC_')].browser_download_url

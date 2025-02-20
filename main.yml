@@ -40,3 +40,7 @@
       tags: [freecad]
     - ansible.builtin.import_tasks: tasks/sdr.yml
       tags: [sdr]
+    - ansible.builtin.import_tasks: tasks/reverse.yml
+      tags:
+        - reverse
+        - never

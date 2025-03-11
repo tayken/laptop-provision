@@ -22,26 +22,26 @@
   become: false
   ansible.builtin.copy:
     src: config/vimrc
-    dest: ~/.vimrc
+    dest: /home/{{ ansible_user }}/.vimrc
     mode: "0644"
 
 - name: Copy tmux config
   become: false
   ansible.builtin.copy:
     src: config/tmux.conf
-    dest: ~/.tmux.conf
+    dest: /home/{{ ansible_user }}/.tmux.conf
     mode: "0644"
 
 - name: Copy git config
   become: false
   ansible.builtin.copy:
     src: config/gitconfig
-    dest: ~/.gitconfig
+    dest: /home/{{ ansible_user }}/.gitconfig
     mode: "0664"
 
 - name: Copy tig config
   become: false
   ansible.builtin.copy:
     src: config/tigrc
-    dest: ~/.tigrc
+    dest: /home/{{ ansible_user }}/.tigrc
     mode: "0664"

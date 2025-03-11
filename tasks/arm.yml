@@ -15,7 +15,7 @@
 - name: Create pico folder
   become: false
   ansible.builtin.file:
-    path: ~/pico
+    path: /home/{{ ansible_user }}/pico
     state: directory
     mode: "0775"
 
@@ -23,16 +23,16 @@
   become: false
   ansible.builtin.git:
     repo: https://github.com/raspberrypi/pico-sdk.git
-    dest: ~/pico/pico-sdk
+    dest: /home/{{ ansible_user }}/pico/pico-sdk
 
 - name: Checkout Pico examples repository
   become: false
   ansible.builtin.git:
     repo: https://github.com/raspberrypi/pico-examples.git
-    dest: ~/pico/pico-examples
+    dest: /home/{{ ansible_user }}/pico/pico-examples
 
 - name: Checkout picotool repository
   become: false
   ansible.builtin.git:
     repo: https://github.com/raspberrypi/picotool.git
-    dest: ~/pico/picotool
+    dest: /home/{{ ansible_user }}/pico/picotool

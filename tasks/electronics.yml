@@ -76,6 +76,8 @@
 - name: Install cynthion python package
   ansible.builtin.pip:
     name: cynthion
+    virtualenv: /home/{{ ansible_user }}/cynthion
+    virtualenv_command: python3 -m venv
 
 - name: Check latest Packetry release
   ansible.builtin.uri:

@@ -93,3 +93,18 @@
     mode: "0775"
   vars:
     url_query: assets[?contains(name,'-x86_64') && content_type=='application/vnd.appimage'].browser_download_url
+
+- name: Check latest Arduino IDE release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/arduino/arduino-ide/releases/latest
+  register: arduino_latest
+  check_mode: false
+
+- name: Install Arduino IDE
+  become: false
+  ansible.builtin.get_url:
+    url: "{{ arduino_latest.json | community.general.json_query(url_query) | join('') }}"
+    dest: /home/{{ ansible_user }}/bin/Arduino.AppImage
+    mode: "0775"
+  vars:
+    url_query: assets[?contains(name,'Linux_64bit.AppImage')].browser_download_url

@@ -45,3 +45,15 @@
     src: config/tigrc
     dest: /home/{{ ansible_user }}/.tigrc
     mode: "0664"
+
+- name: Check latest GitHub CLI release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/cli/cli/releases/latest
+  register: github_cli_latest
+  check_mode: false
+
+- name: Install GitHub CLI
+  ansible.builtin.apt:
+    deb: "{{ github_cli_latest.json | community.general.json_query(url_query) | join('') }}"
+  vars:
+    url_query: assets[?contains(name,'linux_amd64.deb')].browser_download_url

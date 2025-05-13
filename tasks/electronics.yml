@@ -1,7 +1,7 @@
 ---
 - name: Add KiCad stable repository from PPA
   ansible.builtin.apt_repository:
-    repo: ppa:kicad/kicad-8.0-releases
+    repo: ppa:kicad/kicad-9.0-releases
     state: present
 
 - name: Install electronics packages

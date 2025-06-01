@@ -16,3 +16,21 @@
       - virtualbox
       - vagrant
     state: present
+
+- name: Check if Vagrant autocomplete is installed
+  become: false
+  ansible.builtin.lineinfile:
+    path: /home/{{ ansible_user }}/.bashrc
+    regexp: 'vagrant.*completion'
+    state: absent
+  check_mode: true
+  changed_when: false
+  register: vagrant_autocomplete_installed
+
+- name: Install Vagrant autocomplete
+  become: false
+  ansible.builtin.command:
+    cmd: vagrant autocomplete install --bash
+  register: vagrant_autocomplete_install
+  changed_when: vagrant_autocomplete_install.rc != 0
+  when: not vagrant_autocomplete_installed.found

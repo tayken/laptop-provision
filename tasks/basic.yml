@@ -80,3 +80,10 @@
     path: /home/{{ ansible_user }}/.bashrc
     regexp: '(?<!\$\(__git_ps1\))\\\$ '''
     replace: '$(__git_ps1)\$ '''
+
+- name: Start ssh-agent automatically
+  become: false
+  ansible.builtin.lineinfile:
+    path: /home/{{ ansible_user }}/.bashrc
+    regexp: 'ssh-agent'
+    line: 'eval "$(ssh-agent -s)" &>/dev/null'

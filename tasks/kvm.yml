@@ -11,6 +11,7 @@
       - libqt6serialport6
       - libqt6svg6
       - libusb-1.0-0-dev
+      - libssl-dev
     state: present
 
 - name: Copy Openterface udev rules

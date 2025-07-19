@@ -46,17 +46,26 @@
     dest: /home/{{ ansible_user }}/.tigrc
     mode: "0664"
 
-- name: Check latest GitHub CLI release
-  ansible.builtin.uri:
-    url: https://api.github.com/repos/cli/cli/releases/latest
-  register: github_cli_latest
-  check_mode: false
+- name: Fix diff-highlight permissions (add +x)
+  ansible.builtin.file:
+    path: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+    mode: "0755"
+
+- name: Add GitHub CLI repository
+  ansible.builtin.deb822_repository:
+    name: github-cli
+    types: deb
+    architectures: amd64
+    uris: https://cli.github.com/packages
+    signed_by: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    suites: stable
+    components: main
+    state: present
 
 - name: Install GitHub CLI
   ansible.builtin.apt:
-    deb: "{{ github_cli_latest.json | community.general.json_query(url_query) | join('') }}"
-  vars:
-    url_query: assets[?contains(name,'linux_amd64.deb')].browser_download_url
+    name: gh
+    state: present
 
 - name: Configure Git status
   become: false

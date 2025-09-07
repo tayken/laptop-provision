@@ -8,8 +8,8 @@
 - name: Install FreeCad
   become: false
   ansible.builtin.get_url:
-    url: "{{ freecad_latest.json | community.general.json_query(url_query) | join('') }}"
+    url: "{{ freecad_latest.json | community.general.json_query(url_query) | map('regex_search', '.*AppImage$') | reject('none') | join('') }}"
     dest: /home/{{ ansible_user }}/bin/FreeCAD.AppImage
     mode: "0775"
   vars:
-    url_query: assets[?contains(name,'Linux-x86_64') && content_type=='application/vnd.appimage'].browser_download_url
+    url_query: assets[?contains(name,'Linux-x86_64')].browser_download_url

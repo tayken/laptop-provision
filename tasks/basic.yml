@@ -71,6 +71,7 @@
   become: false
   ansible.builtin.blockinfile:
     path: /home/{{ ansible_user }}/.bashrc
+    marker: "# {mark} Configure Git Status"
     insertbefore: '\$color_prompt'
     append_newline: true
     prepend_newline: true
@@ -92,7 +93,12 @@
 
 - name: Start ssh-agent automatically
   become: false
-  ansible.builtin.lineinfile:
+  ansible.builtin.blockinfile:
     path: /home/{{ ansible_user }}/.bashrc
-    regexp: 'ssh-agent'
-    line: 'eval "$(ssh-agent -s)" &>/dev/null'
+    marker: "# {mark} Start ssh-agent automatically"
+    append_newline: true
+    prepend_newline: true
+    block: |
+      if ! ps -ef | grep "[s]sh-agent" &>/dev/null; then
+        eval "$(ssh-agent -s)" &>/dev/null
+      fi

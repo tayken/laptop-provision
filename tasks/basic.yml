@@ -16,6 +16,7 @@
       - wget
       - curl
       - jq
+      - tree
     state: present
 
 - name: Copy vim config

@@ -1,26 +1,4 @@
 ---
-- name: Install Openterface_QT dependencies
-  ansible.builtin.apt:
-    name:
-      - libqt6core6
-      - libqt6dbus6
-      - libqt6gui6
-      - libqt6network6
-      - libqt6multimedia6
-      - libqt6multimediawidgets6
-      - libqt6serialport6
-      - libqt6svg6
-      - libqt6concurrent6t64
-      - libusb-1.0-0-dev
-      - libssl-dev
-      - libavutil58
-      - libavformat60
-      - libavdevice60
-      - va-driver-all
-      - vainfo
-      - libva-dev
-    state: present
-
 - name: Copy Openterface udev rules
   ansible.builtin.copy:
     src: udev/openterface.rules
@@ -41,7 +19,10 @@
   check_mode: false
 
 - name: Install Openterface_QT
-  ansible.builtin.apt:
-    deb: "{{ openterface_latest.json | community.general.json_query(url_query) | join('') }}"
+  become: false
+  ansible.builtin.get_url:
+    url: "{{ openterface_latest.json | community.general.json_query(url_query) | join('') }}"
+    dest: /home/{{ ansible_user }}/bin/openterfaceQT.AppImage
+    mode: "0775"
   vars:
-    url_query: assets[?contains(name,'amd64.shared.deb')].browser_download_url
+    url_query: assets[?contains(name,'amd64.AppImage')].browser_download_url

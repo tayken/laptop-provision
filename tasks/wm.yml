@@ -30,6 +30,7 @@
     src: config/i3-config
     dest: /home/{{ ansible_user }}/.config/i3/config
     mode: "0664"
+  notify: Reload i3 config
 
 - name: Copy i3status config
   become: false
@@ -37,6 +38,7 @@
     src: config/i3status-config
     dest: /home/{{ ansible_user }}/.config/i3status/config
     mode: "0644"
+  notify: Reload i3status config
 
 - name: Copy touchpad config
   ansible.builtin.copy:

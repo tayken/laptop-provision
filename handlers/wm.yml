@@ -1,0 +1,17 @@
+---
+- name: Reload i3 config
+  become: false
+  ansible.builtin.command:
+    cmd: i3-msg -t command reload
+  register: i3_config_reload
+  changed_when: (i3_config_reload.stdout|from_json)[0].success == true
+
+- name: Reload i3status config
+  become: false
+  ansible.builtin.command:
+    cmd: i3-msg -t command 'exec --no-startup-id {{ item }}'
+  loop:
+    - "killall i3bar"
+    - "i3bar --bar_id=bar-0"
+  register: i3status_config_reload
+  changed_when: (i3status_config_reload.stdout|from_json)[0].success == true

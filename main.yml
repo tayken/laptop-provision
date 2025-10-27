@@ -8,6 +8,7 @@
   roles: []
   handlers:
     - ansible.builtin.import_tasks: handlers/main.yml
+    - ansible.builtin.import_tasks: handlers/wm.yml
 
   tasks:
     - ansible.builtin.import_tasks: tasks/basic.yml

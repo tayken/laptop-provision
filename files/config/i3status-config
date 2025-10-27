@@ -61,10 +61,9 @@ tztime NRT {
 }
 
 tztime IST {
-        format = "Home: %Y-%m-%d %H:%M:%S"
+        format = "IST: %Y-%m-%d %H:%M:%S"
         timezone = "Asia/Istanbul"
 }
-
 
 tztime HOME {
         format = "Home: %Y-%m-%d %H:%M:%S"

@@ -6,7 +6,7 @@
     architectures: amd64
     uris: https://apt.releases.hashicorp.com
     signed_by: https://apt.releases.hashicorp.com/gpg
-    suites: "{{ ansible_distribution_release }}"
+    suites: "{{ ansible_facts['distribution_release'] }}"
     components: main
     state: present
 

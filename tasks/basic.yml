@@ -103,3 +103,13 @@
       if ! ps -ef | grep "[s]sh-agent" &>/dev/null; then
         eval "$(ssh-agent -s)" &>/dev/null
       fi
+
+- name: Create bin folders
+  become: false
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/{{ item }}"
+    state: directory
+    mode: "0775"
+  loop:
+    - bin
+    - .local/bin

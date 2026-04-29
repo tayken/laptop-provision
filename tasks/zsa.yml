@@ -30,7 +30,7 @@
 
 - name: Check latest kontroll release
   ansible.builtin.uri:
-    url: https://api.github.com/repos/zsa/kontroll/releases/latest
+    url: https://api.github.com/repos/zsa/kontroll/releases/167794189
   register: kontroll_latest
   check_mode: false
 

@@ -62,6 +62,10 @@
     suites: stable
     components: main
     state: present
+  notify: Update apt caches
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Install GitHub CLI
   ansible.builtin.apt:

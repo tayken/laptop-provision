@@ -1,4 +1,9 @@
 ---
+- name: Check if dropbox is installed
+  ansible.builtin.package_facts:
+    manager: auto
+
 - name: Install dropbox
   ansible.builtin.apt:
-    deb: https://linux.dropbox.com/packages/ubuntu/dropbox_2024.04.17_amd64.deb
+    deb: https://linux.dropbox.com/packages/ubuntu/dropbox_2026.01.15_amd64.deb
+  when: "'dropbox' not in ansible_facts.packages"

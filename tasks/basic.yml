@@ -19,6 +19,7 @@
       - curl
       - jq
       - tree
+      - ansible-lint
     state: present
 
 - name: Copy vim config

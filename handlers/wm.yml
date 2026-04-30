@@ -4,7 +4,10 @@
   ansible.builtin.command:
     cmd: i3-msg -t command reload
   register: i3_config_reload
-  changed_when: (i3_config_reload.stdout|from_json)[0].success == true
+  changed_when: "'success*true' in i3_config_reload.stdout"
+  failed_when:
+    - i3_config_reload.stderr != ""
+    - "'socket' not in i3_config_reload.stderr"
 
 - name: Reload i3status config
   become: false
@@ -14,4 +17,7 @@
     - "killall i3bar"
     - "i3bar --bar_id=bar-0"
   register: i3status_config_reload
-  changed_when: (i3status_config_reload.stdout|from_json)[0].success == true
+  changed_when: "'success*true' in i3status_config_reload.stdout"
+  failed_when:
+    - i3status_config_reload.stderr != ""
+    - "'socket' not in i3status_config_reload.stderr"

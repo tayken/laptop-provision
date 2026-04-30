@@ -2,7 +2,3 @@
 - name: Reload udev
   ansible.builtin.command: udevadm control --reload
   changed_when: false
-
-- name: Update apt caches
-  ansible.builtin.apt:
-    update_cache: true

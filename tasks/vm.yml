@@ -9,10 +9,6 @@
     suites: "{{ ansible_facts['distribution_release'] }}"
     components: main
     state: present
-  notify: Update apt caches
-
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
 
 - name: Install virtual machine packages
   ansible.builtin.apt:
@@ -21,6 +17,7 @@
       - virtualbox-guest-additions-iso
       - vagrant
     state: present
+    update_cache: true
 
 - name: Check if Vagrant autocomplete is installed
   become: false

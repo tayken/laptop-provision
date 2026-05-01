@@ -10,8 +10,6 @@
       - cmake
       - gcc
       - build-essential
-      - python3-pip
-      - python3-venv
       - git
       - tig
       - texlive-full
@@ -19,7 +17,6 @@
       - curl
       - jq
       - tree
-      - ansible-lint
     state: present
     update_cache: true
 

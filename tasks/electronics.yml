@@ -73,11 +73,11 @@
     dest: /home/{{ ansible_user }}
     remote_src: true
 
-- name: Install cynthion python package
-  ansible.builtin.pip:
+- name: Install cynthion
+  become: false
+  community.general.pipx:
     name: cynthion
-    virtualenv: /home/{{ ansible_user }}/cynthion
-    virtualenv_command: python3 -m venv
+    executable: /home/{{ ansible_user }}/.local/bin/pipx
 
 - name: Check latest Packetry release
   ansible.builtin.uri:

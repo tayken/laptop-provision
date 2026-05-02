@@ -20,7 +20,7 @@
     groups: plugdev
     append: true
 
-- name: Install keymapp
+- name: Install Keymapp
   become: false
   ansible.builtin.unarchive:
     src: https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz
@@ -28,13 +28,13 @@
     remote_src: true
     include: keymapp
 
-- name: Check latest kontroll release
+- name: Check latest Kontroll release
   ansible.builtin.uri:
     url: https://api.github.com/repos/zsa/kontroll/releases/167794189
   register: kontroll_latest
   check_mode: false
 
-- name: Install kontroll
+- name: Install Kontroll
   become: false
   ansible.builtin.unarchive:
     src: "{{ kontroll_latest.json | community.general.json_query(url_query) | join('') }}"
@@ -43,3 +43,19 @@
     include: kontroll
   vars:
     url_query: assets[?contains(name,'linux')].browser_download_url
+
+- name: Check latest Zapp release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/zsa/zapp/releases/latest
+  register: zapp_latest
+  check_mode: false
+
+- name: Install Zapp
+  become: false
+  ansible.builtin.unarchive:
+    src: "{{ zapp_latest.json | community.general.json_query(url_query) | join('') }}"
+    dest: /home/{{ ansible_user }}/.local/bin
+    remote_src: true
+    include: zapp
+  vars:
+    url_query: assets[?contains(name,'linux-x86')].browser_download_url

@@ -17,6 +17,8 @@
       tags: [python]
     - ansible.builtin.import_tasks: tasks/dropbox.yml
       tags: [dropbox]
+    - ansible.builtin.import_tasks: tasks/discord.yml
+      tags: [discord]
     - ansible.builtin.import_tasks: tasks/battery.yml
       tags: [battery]
     - ansible.builtin.import_tasks: tasks/zsa.yml

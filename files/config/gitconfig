@@ -1,10 +1,10 @@
 [user]
-	name = tayken
-	email = taylanayken@gmail.com
+    name = tayken
+    email = taylanayken@gmail.com
 [core]
-	editor = vim
-	pager = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+    editor = vim
+    pager = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
 [interactive]
-	difffilter = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+    difffilter = perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight
 [pull]
-	rebase = true
+    rebase = true

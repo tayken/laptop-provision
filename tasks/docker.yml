@@ -10,15 +10,15 @@
     state: directory
     mode: "0755"
 
-- name: Add Docker apt key
-  ansible.builtin.get_url:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    dest: /etc/apt/keyrings/docker.asc
-    mode: "0644"
-
 - name: Add Docker repository
-  ansible.builtin.apt_repository:
-    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_facts['distribution_release'] }} stable
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: [deb]
+    architectures: [amd64]
+    uris: [https://download.docker.com/linux/ubuntu]
+    suites: ["{{ ansible_facts['distribution_release'] }}"]
+    components: [stable]
+    signed_by: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: Install Docker packages

@@ -1,7 +1,12 @@
 ---
-- name: Add TLP repository from PPA
-  ansible.builtin.apt_repository:
-    repo: ppa:linrunner/tlp
+- name: Add TLP repository
+  ansible.builtin.deb822_repository:
+    name: tlp
+    types: [deb]
+    uris: [https://ppa.launchpadcontent.net/linrunner/tlp/ubuntu]
+    suites: ["{{ ansible_facts['distribution_release'] }}"]
+    components: [main]
+    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF32935F2
     state: present
 
 - name: Install battery packages

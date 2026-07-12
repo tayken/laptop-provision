@@ -4,12 +4,6 @@
     name: ca-certificates
     state: present
 
-- name: Ensure directory exists for /etc/apt/keyrings
-  ansible.builtin.file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: "0755"
-
 - name: Add Docker repository
   ansible.builtin.deb822_repository:
     name: docker

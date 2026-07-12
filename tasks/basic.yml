@@ -53,6 +53,12 @@
     path: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
     mode: "0755"
 
+- name: Ensure directory exists for /etc/apt/keyrings
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
 - name: Add GitHub CLI repository
   ansible.builtin.deb822_repository:
     name: github-cli

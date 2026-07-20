@@ -1,0 +1,5 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name={{ app_name }}
+Exec=/home/{{ ansible_user }}/bin/{{ app_name }}.AppImage{{ " --no-sandbox" if no_sandbox }}

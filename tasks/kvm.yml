@@ -12,17 +12,27 @@
     groups: dialout
     append: true
 
-- name: Check latest Openterface_QT release
+- name: Check latest OpenterfaceQT release
   ansible.builtin.uri:
     url: https://api.github.com/repos/TechxArtisanStudio/Openterface_QT/releases/latest
   register: openterface_latest
   check_mode: false
 
-- name: Install Openterface_QT
+- name: Install OpenterfaceQT
   become: false
   ansible.builtin.get_url:
     url: "{{ openterface_latest.json | community.general.json_query(url_query) | join('') }}"
-    dest: /home/{{ ansible_user }}/bin/openterfaceQT.AppImage
+    dest: /home/{{ ansible_user }}/bin/OpenterfaceQT.AppImage
     mode: "0775"
   vars:
     url_query: assets[?contains(name,'amd64.AppImage')].browser_download_url
+
+- name: OpenterfaceQT desktop file
+  become: false
+  ansible.builtin.template:
+    src: desktop.j2
+    dest: /home/{{ ansible_user }}/.local/share/applications/{{ app_name }}.desktop
+    mode: "0600"
+  vars:
+    app_name: OpenterfaceQT
+    no_sandbox: false

@@ -24,6 +24,16 @@
     dest: /home/{{ ansible_user }}/bin/Logic-2.AppImage
     mode: "0775"
 
+- name: Saleae Logic 2 desktop file
+  become: false
+  ansible.builtin.template:
+    src: desktop.j2
+    dest: /home/{{ ansible_user }}/.local/share/applications/{{ app_name }}.desktop
+    mode: "0600"
+  vars:
+    app_name: Logic-2
+    no_sandbox: true
+
 - name: Checkout Tomu repository
   become: false
   ansible.builtin.git:
@@ -99,6 +109,16 @@
   vars:
     url_query: assets[?contains(name,'-x86_64') && content_type=='application/vnd.appimage'].browser_download_url
 
+- name: Packetry desktop file
+  become: false
+  ansible.builtin.template:
+    src: desktop.j2
+    dest: /home/{{ ansible_user }}/.local/share/applications/{{ app_name }}.desktop
+    mode: "0600"
+  vars:
+    app_name: Packetry
+    no_sandbox: false
+
 - name: Check latest Arduino IDE release
   ansible.builtin.uri:
     url: https://api.github.com/repos/arduino/arduino-ide/releases/latest
@@ -113,3 +133,13 @@
     mode: "0775"
   vars:
     url_query: assets[?contains(name,'Linux_64bit.AppImage')].browser_download_url
+
+- name: Arduino IDE desktop file
+  become: false
+  ansible.builtin.template:
+    src: desktop.j2
+    dest: /home/{{ ansible_user }}/.local/share/applications/{{ app_name }}.desktop
+    mode: "0600"
+  vars:
+    app_name: Arduino
+    no_sandbox: true

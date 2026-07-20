@@ -13,3 +13,13 @@
     mode: "0775"
   vars:
     url_query: assets[?contains(name,'Linux-x86_64')].browser_download_url
+
+- name: FreeCad desktop file
+  become: false
+  ansible.builtin.template:
+    src: desktop.j2
+    dest: /home/{{ ansible_user }}/.local/share/applications/{{ app_name }}.desktop
+    mode: "0600"
+  vars:
+    app_name: FreeCad
+    no_sandbox: false

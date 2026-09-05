@@ -1,0 +1,37 @@
+---
+- name: Install Proxmark dependency packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - ca-certificates
+      - build-essential
+      - pkg-config
+      - libreadline-dev
+      - gcc-arm-none-eabi
+      - libnewlib-dev
+      - qt6-base-dev
+      - libbz2-dev
+      - liblz4-dev
+      - zlib1g-dev
+      - libbluetooth-dev
+      - libpython3-dev
+      - libssl-dev
+      - libgd-dev
+    state: present
+
+- name: Checkout Proxmark repository
+  become: false
+  ansible.builtin.git:
+    repo: https://github.com/RfidResearchGroup/proxmark3.git
+    dest: /home/{{ ansible_user }}/proxmark3
+
+- name: Check if Proxmark udev rules are installed
+  ansible.builtin.stat:
+    path: /etc/udev/rules.d/77-pm3-usb-device-blacklist.rules
+  register: proxmark_udev
+
+- name: Install Proxmark udev rules
+  community.general.make:
+    chdir: /home/{{ ansible_user }}/proxmark3
+    target: udev
+  when: not proxmark_udev.stat.exists

@@ -39,6 +39,8 @@
       tags: [vscode]
     - ansible.builtin.import_tasks: tasks/electronics.yml
       tags: [electronics]
+    - ansible.builtin.import_tasks: tasks/rfid.yml
+      tags: [rfid]
     - ansible.builtin.import_tasks: tasks/kvm.yml
       tags: [kvm]
     - ansible.builtin.import_tasks: tasks/freecad.yml
